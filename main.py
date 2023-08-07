@@ -20,23 +20,22 @@ import numpy as np
 # tensor : uma matriz n-dimensional de números (onde n pode ser qualquer número, um tensor de dimensão 0 é um escalar, um tensor de dimensão 1 é um vetor).
 
 
-X = tf.constant([-7.0, -4.0, -1.0, 2.0, 5.0, 8.0, 11.0, 14.0])
+X = np.arange(-100, 100, 4)
 
 # Create labels (using tensors)
-y = tf.constant([3.0, 6.0, 9.0, 12.0, 15.0, 18.0, 21.0, 24.0])
+y = np.arange(-90, 110, 4)
 
-# Set random seed
+# Split data into train and test sets
+X_train = X[:40] # first 40 examples (80% of data)
+y_train = y[:40]
+
+X_test = X[40:] # last 10 examples (20% of data)
+y_test = y[40:]
+
 tf.random.set_seed(42)
 
-# Create a model (same as above)
-model = tf.keras.Sequential([
-  tf.keras.layers.Dense(1)
+model_1 = tf.keras.Sequential([
+    tf.keras.Dense(1)
 ])
 
-# Compile model (same as above)
-model.compile(loss=tf.keras.losses.mae,
-              optimizer=tf.keras.optimizers.SGD(),
-              metrics=["mae"])
-
-# Fit model (this time we'll train for longer)
-model.fit(tf.expand_dims(X, axis=-1), y, epochs=100) # train for 100 epochs not 10
+model_1.compile()
